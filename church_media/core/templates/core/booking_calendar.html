@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ministry Booking{% endblock %}
+
+{% block extra_css %}
+
+<style>
+   .calendar {
+        width: 100%;
+        border-collapse: collapse;
+    }
+   .calendar th,.calendar td {
+        border: 1px solid #011475;
+        padding: 10px;
+        text-align: center;
+        height: 80px;
+        vertical-align: top;
+    }
+   .calendar th {
+        background: #0d6efd;
+        color: white;
+    }
+   .day-available {
+        background: #016219;
+        cursor: pointer;
+    }
+   .day-available:hover {
+        background: #016a43;
+    }
+   .day-booked {
+        background: #a66901;
+        color: #8b8888;
+    }
+   .day-unavailable,.day-past {
+        background: #e2beb7;
+        color: #61707d;
+    }
+   .day-empty {
+        background: #f8f9fa;
+    }
+   .legend span {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">Invitation For Ministration!</h1>
+    <p class="text-center text-muted">Note: All bookings must be made at least 1 month in advance.</p>
+
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <a href="{% url 'core:booking_calendar_month' prev_year prev_month %}" class="btn btn-sm btn-outline-primary">&laquo; Prev</a>
+                    <h4 class="mb-0">{{ month_name }} {{ year }}</h4>
+                    <a href="{% url 'core:booking_calendar_month' next_year next_month %}" class="btn btn-sm btn-outline-primary">Next &raquo;</a>
+                </div>
+                <div class="card-body">
+                    <table class="calendar">
+                        <thead>
+                            <tr>
+                                <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for week in calendar_weeks %}
+                            <tr>
+                                {% for day in week %}
+                                <td class="day-{{ day.status }}"
+                                    {% if day.status == 'available' %}onclick="selectDate('{{ day.date|date:'Y-m-d' }}')"{% endif %}>
+                                    {{ day.day }}
+                                    {% if day.status == 'booked' %}<br><small>Booked</small>{% endif %}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="legend mt-3">
+                        <p><span class="day-available"></span> Available
+                           <span class="day-booked ms-3"></span> Booked
+                           <span class="day-unavailable ms-3"></span> Unavailable</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Booking Form</h5>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary w-100">Submit Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function selectDate(dateStr) {
+    document.getElementById('id_event_date').value = dateStr;
+    document.getElementById('id_event_date').scrollIntoView({behavior: 'smooth'});
+}
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container py-5">
+<h2 class="text-center" style="color:white;">🎤 Testimonies - <span style="color:#faa403;">What God Did</span></h2>
+<div class="text-center mb-4"><a href="{% url 'core:submit_testimony' %}" class="btn rounded-pill" style="background:#faa403;color:#000;font-weight:700;">+ Share Your Testimony</a></div>
+<div class="row">
+{% for t in items %}
+<div class="col-md-6 mb-4">
+  <div style="background:#111;border-radius:15px;overflow:hidden;border:1px solid #222;">
+    {% if t.youtube_link %}
+    <iframe width="100%" height="200" src="{{ t.youtube_link|cut:'watch?v='|cut:'https://www.youtube.com/'|cut:'https://youtu.be/' }}" frameborder="0"></iframe>
+    {% endif %}
+    <div style="padding:15px;color:white;">
+      <h6 style="color:#faa403;">{{ t.title }}</h6>
+      <p style="font-size:13px;color:#ccc;">{{ t.story|truncatechars:120 }}</p>
+      <small>- {{ t.name }}</small>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

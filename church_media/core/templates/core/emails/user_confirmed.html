@@ -1,0 +1,18 @@
+{% extends 'core/emails/base_email.html' %}
+
+{% block content %}
+<h2>Booking Confirmed!</h2>
+<p>Dear {{ booking.full_name }},</p>
+<p>Good news! Your ministry booking has been <strong>CONFIRMED</strong>.</p>
+
+<div class="details">
+    <p><span class="label">Event Date:</span> {{ booking.event_date|date:"l, F d, Y" }}</p>
+    <p><span class="label">Event Time:</span> {{ booking.event_time|time:"g:i A" }}</p>
+    <p><span class="label">Venue:</span> {{ booking.event_address }}</p>
+    <p><span class="label">Church:</span> {{ booking.church_name }}</p>
+</div>
+
+<p>We look forward to ministering with you. For any changes, please contact us at least 2 weeks before the event.</p>
+
+<p>Blessings,<br>Zion Global Bible Church</p>
+{% endblock %}

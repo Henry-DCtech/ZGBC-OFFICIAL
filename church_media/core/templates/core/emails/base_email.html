@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <img src="{{ site_url }}{% static 'core/images/logo1.png' %}" alt="Logo" style="max-height: 60px; margin-bottom: 10px;">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+       .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+       .header { background: #0d6efd; padding: 20px; text-align: center; }
+       .header h1 { color: white; margin: 0; }
+       .content { background: #f8f9fa; padding: 30px; border: 1px solid #ddd; }
+       .footer { text-align: center; padding: 20px; font-size: 12px; color: #6c757d; }
+       .btn { display: inline-block; padding: 12px 24px; background: #0d6efd; color: white !important; 
+               text-decoration: none; border-radius: 5px; margin-top: 15px; }
+       .details { background: white; padding: 15px; border-left: 4px solid #0d6efd; margin: 20px 0; }
+       .label { font-weight: bold; color: #0d6efd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ZION GLOBAL BIBLE CHURCH</h1>
+        </div>
+        <div class="content">
+            {% block content %}
+            <p>
+                Hope this mail meets you well.<br>
+
+                Thank you for reaching out to us.<br>
+
+                Your message has been received and our team will be in touch with you soon. kindly check your mail back in 3 hours time.<br>
+
+                Best Regards.
+            </p>
+            {% endblock %}
+        </div>
+        <div class="footer">
+            <p>Zion Global Bible Church | Osogbo, Nigeria</p>
+            <p>This is an automated email. Please do not reply directly.</p>
+        </div>
+    </div>
+</body>
+</html>

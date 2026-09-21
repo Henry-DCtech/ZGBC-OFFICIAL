@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container py-5">
+    {% if event.image %}
+    <img src="{{ event.image.url }}" class="img-fluid rounded mb-4" alt="{{ event.title }}">
+    {% endif %}
+    
+    <h1>{{ event.title }}</h1>
+    <p class="lead text-muted">
+        <i class="bi bi-calendar"></i> {{ event.date|date:"l, F d, Y" }}<br>
+        <i class="bi bi-clock"></i> {{ event.time|time:"g:i A" }}<br>
+        <i class="bi bi-geo-alt"></i> {{ event.location }}
+    </p>
+    
+    <div class="mt-4">
+        {{ event.description|linebreaks }}
+    </div>
+    
+    <a href="{% url 'core:event_list' %}" class="btn btn-secondary mt-4">← Back to Events</a>
+</section>
+{% endblock %}

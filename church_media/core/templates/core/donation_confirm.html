@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-5">
+                        <h2 class="fw-bold mt-3">Confirm Your Donation</h2>
+                        
+                        <div class="bg-light p-4 rounded-3 mb-4">
+                            <div class="row mb-3">
+                                <div class="col-6 text-muted">Name:</div>
+                                <div class="col-6 fw-bold text-end">{{ full_name }}</div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-6 text-muted">Email:</div>
+                                <div class="col-6 fw-bold text-end">{{ email }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 fs-5">Amount:</div>
+                                <div class="col-6 fs-4 fw-bold text-end">
+                                    {{ currency_symbol }}{{ amount }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" id="paystack-button" onclick="payWithPaystack()" 
+                                class="btn btn-success btn-lg w-100" 
+                                style="border-radius: 15px; padding: 15px; cursor: pointer;">
+                            <i class="bi bi-credit-card"></i> Pay {{ currency_symbol }}{{ amount }} Now
+                        </button>
+
+                        <a href="{% url 'core:donation' %}" class="btn btn-outline-secondary w-100 mt-3">
+                            <i class="bi bi-arrow-left"></i> Edit Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ paystack_public_key|json_script:"paystack-key" }}
+{{ email|json_script:"donor-email" }}
+{{ amount_kobo|json_script:"donation-amount" }}
+{{ currency|json_script:"donation-currency" }}
+{{ full_name|json_script:"donor-name" }}
+{{ donation_type|json_script:"donation-type" }}
+
+<!-- THIS MUST LOAD FIRST -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+<script>
+function payWithPaystack() {
+    // Check if Paystack loaded
+    if (typeof PaystackPop === 'undefined') {
+        alert('Paystack failed to load. Check your internet connection or disable adblock.');
+        console.error('PaystackPop is not defined');
+        return;
+    }
+
+    const publicKey = JSON.parse(document.getElementById('paystack-key').textContent);
+    const email = JSON.parse(document.getElementById('donor-email').textContent);
+    const amount = JSON.parse(document.getElementById('donation-amount').textContent);
+    const currency = JSON.parse(document.getElementById('donation-currency').textContent);
+    const fullName = JSON.parse(document.getElementById('donor-name').textContent);
+    const donationType = JSON.parse(document.getElementById('donation-type').textContent);
+
+    let handler = PaystackPop.setup({
+        key: publicKey,
+        email: email,
+        amount: amount,
+        currency: currency,
+        ref: 'ZGBC_' + Math.floor((Math.random() * 1000000000) + 1),
+        metadata: {
+            custom_fields: [
+                {display_name: "Full Name", variable_name: "full_name", value: fullName},
+                {display_name: "Donation Type", variable_name: "donation_type", value: donationType}
+            ]
+        },
+        callback: function(response) {
+            window.location.href = '/verify-donation/?reference=' + response.reference;
+        },
+        onClose: function() {
+            alert('Transaction cancelled');
+        }
+    });
+    handler.openIframe();
+}
+</script>
+{% endblock %}

@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ZION GLOBAL BIBLE CHURCH OFFICIAL{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+    
+    <style>
+        .hero-clouds {
+            background: url("{% static 'core/img/bgkmain.png' %}") repeat-x;
+            background-size: cover;
+            background-position: 0 50%;
+            animation: moveClouds 60s linear infinite;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes moveClouds {
+            0% { background-position: 0 50%; }
+            100% { background-position: -1000px 50%; }
+        }
+        .hero-clouds .overlay {
+            background: rgba(0, 0, 0, 0.4);
+            width: 100%;
+            height: 100%;
+            padding: 80px 0;
+        }
+    </style>
+</head>
+<body>
+    {% include 'core/partials/navbar.html' %} 
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer class="pt-5 pb-3" style="background: #0f0f0f;">
+        <div class="container text-white">
+            <div class="row g-4">
+                <!-- About Column -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-3">
+                        <img src="{% static 'core/images/logo1.png' %}" alt="ZGBC OFFICIAL" height="35" class="me-2">
+                    </h5>
+                    <p class="small">
+                        Setting lives free from the captivity of the enemies, 
+                        transforming them through the Word of God for 
+                        effective kingdom service. Isaiah 42:6-7
+                    </p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                        <a href="https://youtube.com/@ziongbctv" class="text-white me-3 fs-5"><i class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/@ziongbc" class="text-white me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="https://tiktok.com/@zgbcmedia" class="text-white me-3 fs-5"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://wa.me/2349131245154" class="text-white me-3 fs-5"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="https://twitter.com/@LebokuH" class="text-white me-3 fs-5"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links Column -->
+                <div class="col-lg-2 col-md-6">
+                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-link me-2"></i>Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-house me-2"></i>Home
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:about' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-circle-info me-2"></i>About Us
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:blog' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-book-bible me-2"></i>Blog
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#livestream" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-satellite-dish me-2"></i>Live Stream
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:contact' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-handshake me-2"></i>Contact
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Ministry Column -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-church me-2"></i>Ministry</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'core:prayer_request' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-hands-praying me-2"></i>Prayer Request
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:partners' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-comment-dots me-2"></i>Partners
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:events' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-calendar-days me-2"></i>Events
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:donation' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-heart me-2"></i>Donation
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="{% url 'core:radio' %}" class="text-white-50 text-decoration-none">
+                                <i class="fa-solid fa-radio me-2"></i>Radio
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Us Column -->
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-address-book me-2"></i>Contact Us</h6>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2">
+                            <i class="fa-solid fa-location-dot me-2 text-warning"></i>
+                            Broad Street, Prime Area, Dada Estate, Osogbo, Osun State, Nigeria
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa-solid fa-phone me-2 text-warning"></i>
+                            <a href="tel:+2349131245154" class="text-white-50 text-decoration-none">+234 913 124 5154</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa-solid fa-envelope me-2 text-warning"></i>
+                            <a href="mailto:zionglobalbiblechurch@gmail.com" class="text-white-50 text-decoration-none">zionglobalbiblechurch@gmail.com</a>
+                        </li>
+                        <li class="mb-2">
+                            <i class="fa-solid fa-clock me-2 text-warning"></i>
+                            Sun: 8:00 AM | Wed: 5:00 PM
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-4 border-secondary">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small mb-0">&copy; 2026 Zion Global Bible Church. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="{% url 'core:privacy' %}" class="text-white-50 text-decoration-none small me-3">
+                        <i class="fa-solid fa-shield-halved me-1"></i>Privacy Policy
+                    </a>
+                    <a href="{% url 'core:terms' %}" class="text-white-50 text-decoration-none small">
+                        <i class="fa-solid fa-file-contract me-1"></i>Terms of Use
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+    {% if messages %}
+    <div id=""message-counter" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+        {% for message in messages %}
+            <div class="django-message" style="background: #28a745; color: white; padding: 15px 20px; border-radius: 5px; margin-bottom: 10px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <script>
+        // Auto-hide messages after 3 seconds
+        setTimeout(function() {
+            const messages = document.querySelectorAll('.django-message');
+            messages.forEach(function(msg) {
+                msg.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                msg.style.opacity ="0";
+                msg.style.transform = "translateX(100%)";
+                setTimeout(() => {
+                    msg.style.display = "none"; }, 500);
+                });
+            }, 3000); //3000ms = 3 seconds
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

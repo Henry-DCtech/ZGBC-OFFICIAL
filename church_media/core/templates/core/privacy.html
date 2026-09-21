@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div style="max-width:800px;margin:40px auto;padding:40px;background:#000004f0;color:#fcfcfc;border-radius:12px;line-height:1.8;">
+<h1 style="text-align:center;margin-bottom:10px;">Privacy Policy</h1>
+<p style="text-align:center;color:#faa403;margin-bottom:30px;">Effective Date: September 20, 2026 - ZGBC OFFICIAL</p>
+
+<h3>1. Information We Collect</h3>
+<p>Account: username, email. Partner/Contact: name, phone, address. Donations: name, email, amount via Paystack (we never store card). Prayer Requests, Bookings, and technical IP/cookies.</p>
+
+<h3>2. How We Use It</h3>
+<p>To manage accounts, process partnerships, send welcome emails, answer prayers, confirm bookings, verify donations, send receipts, and improve livestream experience.</p>
+
+<h3>3. Sharing</h3>
+<p>We don't sell data. Only share with Paystack for payments, email provider for receipts, and when required by law.</p>
+
+<h3>4. Cookies & Security</h3>
+<p>We use essential cookies for login. We use SSL and encrypted passwords. You can disable cookies but login may fail.</p>
+
+<h3>5. Your Rights</h3>
+<p>Email zionglobalbiblechurch@gmail.com to access, correct, or delete your data.</p><br>
+
+<div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
+  <h3 style="margin:0; color:white;">Contact:</h3>
+  
+  <a href="mailto:zionglobalbiblechurch@gmail.com" style="text-decoration:none; display:flex; align-items:center; gap:8px; background:#111; padding:8px 14px; border-radius:20px; border:1px solid #333;">
+    <i class="fa-solid fa-envelope" style="color:#EA4335;"></i>
+    <span style="color:#ffffff;">zionglobalbiblechurch@gmail.com</span>
+  </a>
+  
+  <a href="tel:+2349131245154" style="text-decoration:none; display:flex; align-items:center; gap:8px; background:#111; padding:8px 14px; border-radius:20px; border:1px solid #333;">
+    <i class="fa-solid fa-phone" style="color:#faa403;"></i>
+    <span style="color:#faa403;">+2349131245154</span>
+  </a>
+</div>
+<p style="margin-top:30px;"><a href="{% url 'core:terms' %}" style="color:#0432e8;">View Terms of Use</a></p>
+</div>
+{% endblock %}

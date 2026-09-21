@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - ZGBC OFFICIAL</title>
+    <style>
+        :root {
+            --bg-color: #000000; --card-bg: #000004f0; --primary-color: #0432e8;
+            --primary-hover: #2563eb; --text-color: #fcfcfc; --text-muted: #faa403;
+            --input-bg: #ffffff; --border-color: #000000; --error-color: #ef4444;
+            --border-radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif; background-color: var(--bg-color);
+            color: var(--text-color); min-height: 100vh; display: flex;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .auth-card {
+            background: var(--card-bg); padding: 40px; border-radius: var(--border-radius);
+            width: 100%; max-width: 440px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .auth-card h1 { font-size: 1.875rem; margin-bottom: 8px; text-align: center; }
+        .auth-card p { color: var(--text-muted); text-align: center; margin-bottom: 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-input {
+            width: 100%; padding: 12px 16px; background: var(--input-bg);
+            border: 1px solid var(--border-color); border-radius: 8px;
+            color: #000; font-size: 16px;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary-color); }
+        .error-text { color: var(--error-color); font-size: 0.875rem; margin-bottom: 16px; text-align: center; }
+        .field-error { color: var(--error-color); font-size: 0.875rem; margin-top: 4px; }
+        .btn {
+            width: 100%; background: var(--primary-color); color: #fffcfc; padding: 14px;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .extra-links { margin-top: 24px; text-align: center; color: var(--text-muted); }
+        .extra-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        @media (max-width: 480px) {
+            body { padding: 16px; align-items: flex-start; padding-top: 40px; }
+            .auth-card { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <h1>Create Account</h1>
+        <p>Join Our Official Membership Community!</p>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="error-text">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <!-- IMPORTANT: next redirect -->
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="form-group">
+                <input type="text" name="username" class="form-input" placeholder="Username" value="{{ form.username.value|default:'' }}" required autofocus>
+                {% if form.username.errors %}
+                    <div class="field-error">{{ form.username.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <input type="email" name="email" class="form-input" placeholder="Enter your email" value="{{ form.email.value|default:'' }}" required>
+                {% if form.email.errors %}
+                    <div class="field-error">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password1" class="form-input" placeholder="Password" required>
+                {% if form.password1.errors %}
+                    <div class="field-error">{{ form.password1.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <input type="password" name="password2" class="form-input" placeholder="Confirm Password" required>
+                {% if form.password2.errors %}
+                    <div class="field-error">{{ form.password2.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="error-text">{{ form.non_field_errors.0 }}</div>
+            {% endif %}
+
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <div class="extra-links">
+            <p>Already have an account? <a href="{% url 'core:login' %}?next={{ next }}">Login</a></p>
+        </div>
+    </div>
+</body>
+</html>

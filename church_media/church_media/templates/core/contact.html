@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us - Zion Global Media{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h1>Contact Us</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h3>Our Location</h3>
+        <p>123 Zion Avenue, Accra, Ghana</p>
+        <p><strong>Phone:</strong> +233 24 000 0000</p>
+        <p><strong>Email:</strong> info@zionglobal.org</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}TV - Zion Global Bible Church{% endblock %}
+
+{% block content %}
+<h1>ZGBC Official TV_Channel</h1>
+<p>Stream our live-videos and broadcast!.</p>
+<!-- Add TV player here later -->
+ 
+<div class="tv-container">
+    <div class="tv-wrapper">
+        <iframe 
+            src="https://www.youtube.com/embed/live_stream?channel=@ziongbctv"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<style>
+.tv-container {
+    max-width: 800px;  /* Change this to make it smaller. Try 600px or 500px */
+    margin: 40px auto; /* Centers it */
+    padding: 0 20px;
+}
+
+.tv-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.tv-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+{% endblock %}

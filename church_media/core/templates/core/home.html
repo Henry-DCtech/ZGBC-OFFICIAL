@@ -1,0 +1,237 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Home - ZGBC OFFICIAL | The Portals' Gate{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* --- PREMIUM RESET --- */
+  nav,.navbar { position: relative!important; z-index: 99999!important; }
+ .hero-section video, #livestream video { pointer-events: none!important; }
+
+  /* Marquee */
+ .marquee-container{overflow:hidden;width:100%;background:#00000c;color:#4d4d4d;padding:8px 0;font-weight:800;letter-spacing:1px;}
+ .sliding-text{display:flex;gap:80px;width:max-content;animation:slideLoop 35s linear infinite;font-size:1.1rem;}
+ .sliding-text span{white-space:nowrap;}
+  @keyframes slideLoop{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* Partner scroll */
+ .partner-track{display:flex;gap:14px;animation:partnerscroll 30s linear infinite;width:max-content;}
+  @keyframes partnerscroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* Hero Glass */
+ .hero-section{height:600px;position:relative;overflow:hidden;background:#00010e;display:flex;align-items:center;justify-content:center;text-align:center;}
+ .hero-section::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center, transparent 20%, #00010e 95%);z-index:1;}
+ .hero-content{position:relative;z-index:2;width:90%;max-width:900px;}
+ .hero-badge{background:rgba(250,164,3,0.15);border:1px solid #faa403;color:#faa403;padding:6px 16px;border-radius:20px;font-size:13px;letter-spacing:2px;display:inline-block;margin-bottom:15px;}
+
+  /* Buttons */
+ .btn-glow{box-shadow:0 0 25px rgba(4,50,232,0.6);transition:0.3s;}
+ .btn-glow:hover{box-shadow:0 0 35px rgba(4,50,232,0.9);transform:translateY(-2px);}
+
+  /* Clips Scroll Hide */
+ .clips-scroll::-webkit-scrollbar{display:none;}
+ .clips-scroll{-ms-overflow-style:none;scrollbar-width:none;}
+
+  @media (max-width: 768px){
+   .hero-section{height:520px;}
+   .sliding-text{font-size:0.95rem;animation-duration:20s;}
+  }
+</style>
+<link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- TOP WELCOME TICKER -->
+<div class="marquee-container">
+    <div class="sliding-text">
+        <span style="color:#b8b6b6";>• WELCOME TO APOSTLE HENRY LEBOKU MINISTRIES • ZION GLOBAL BIBLE CHURCH - THE PORTALS' GATE • SETTING LIVES FREE - ISAIAH 42:6-7 •</span>
+    </div>
+</div>
+
+<!-- LIVE BAR -->
+{% if is_live %}
+<div style="background:#ff0000;color:#fff;text-align:center;padding:10px 15px;font-weight:700;position:sticky;top:0;z-index:9999;display:flex;justify-content:center;align-items:center;gap:15px;flex-wrap:wrap;">
+  <span><span style="animation:blink 1s infinite;">🔴</span> LIVE NOW: {{ live_title|default:"Sunday Miracle Service" }}</span>
+  <a href="{% url 'core:tv' %}" style="background:#fff;color:#000;padding:6px 18px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:800;">WATCH NOW</a>
+</div>
+<style>@keyframes blink{0%{opacity:1}50%{opacity:0}100%{opacity:1}}</style>
+{% endif %}
+
+<!-- HERO SECTION - ONE VIDEO ONLY -->
+<section class="hero-section">
+    <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.4;">
+        <source src="{% static 'core/videos/hero-loop.mp4' %}" type="video/mp4">
+        <source src="https://videos.pexels.com/video-files/19087712/19087712-sd_640_360_30fps.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-content text-white px-3">
+        <div class="hero-badge">EST. 2026 • OSOGBO, NIGERIA • WORLDWIDE</div>
+        <h1 class="display-5 fw-bold" style="line-height:1.1;">ZION GLOBAL BIBLE CHURCH</h1>
+        <h2 class="display-6 fw-bold" style="color:#faa403;text-shadow:0 0 20px rgba(250,164,3,0.5);">"The Portals' Gate"</h2>
+        <p class="lead mt-3" style="font-size:1.1rem;max-width:720px;margin:15px auto;opacity:0.9;font-style:italic;">
+            "Setting lives free from the captivity of the enemies, transforming them through the Word of God for effective and efficient kingdom service, preparing for the return of our Lord Jesus Christ".<br>
+            <b style="color:#faa403;">— Isaiah 42:6-7</b>
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+            <a href="{% url 'core:tv' %}" class="btn btn-primary btn-lg rounded-pill px-4 btn-glow" style="background:#0432e8;border:none;font-weight:700;">▶ Watch Live TV</a>
+            <a href="{% url 'core:partners' %}" class="btn btn-lg rounded-pill px-4" style="background:transparent;border:1px solid #3803fa;color:#faa403;font-weight:700;">Become a Partner</a>
+            <a href="{% url 'core:donation' %}" class="btn btn-lg rounded-pill px-4" style="background:transparent;border:1px solid #0307fa;color:#faa403;font-weight:700;">Giving</a>
+
+        </div>
+
+        <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap" style="opacity:0.8;font-size:0.95rem;">
+            <span><i class="fa-solid fa-clock me-2" style="color:#faa403;"></i>Sunday: 8:00 AM</span>
+            <span><i class="fa-solid fa-clock me-2" style="color:#faa403;"></i>Wednesday: 5:00 PM</span>
+            <span><i class="fa-solid fa-location-dot me-2" style="color:#faa403;"></i>Osogbo, Nigeria</span>
+        </div>
+    </div>
+</section>
+
+<!-- LIVESTREAM EXPERIENCE -->
+<section id="livestream" style="background:#01020c;padding:70px 15px;position:relative;overflow:hidden;">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;color:white;position:relative;z-index:2;">
+    <h2 style="font-size:clamp(28px,5vw,42px);font-weight:800;">Experience the Supernatural <span style="color:#faa403;">Power of God Live</span></h2>
+    <p style="opacity:0.7;margin:10px 0 25px 0;">Stream ZGBC TV & Radio 24/7 from anywhere in the world</p>
+
+    <div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap;">
+      <a href="{% url 'core:tv' %}" style="background:#0432e8;color:white;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-flex;align-items:center;gap:8px;">
+        <i class="fa-solid fa-tv"></i> Watch Live TV
+      </a>
+      <a href="{% url 'core:radio' %}" style="background:#faa403;color:black;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:bold;display:inline-flex;align-items:center;gap:8px;">
+        <i class="fa-solid fa-radio"></i> Listen Radio
+      </a>
+    </div>
+
+    <div style="margin-top:25px;background:rgba(255,255,255,0.05);border:1px solid rgba(250,164,3,0.3);display:inline-block;padding:10px 20px;border-radius:12px;backdrop-filter:blur(10px);">
+      <i class="fa-solid fa-hourglass-half me-2" style="color:#faa403;"></i> NEXT LIVE: <span id="countdown" style="color:#faa403;font-weight:bold;">Sunday in 02:14:33</span>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER MARQUEE -->
+<div style="background:#08070f;padding:25px 0;overflow:hidden;border-top:1px solid rgba(250,164,3,0.15);border-bottom:1px solid rgba(250,164,3,0.15);">
+  <p style="text-align:center;color:#faa403;font-weight:800;letter-spacing:3px;font-size:13px;margin:0 0 15px 0;">JOIN <span style="background:#02021a;color:#c4c4c4;padding:2px 10px;border-radius:10px;">{{ partners_count|default:"100" }}+</span> PARTNERS <span style="color:#c4c4c4">WORLDWIDE</span></p>
+  <div class="partner-track">
+    {% for i in "123456789012123456789012" %}
+    <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(45deg,#0432e8,#faa403);padding:2px;flex-shrink:0;">
+      <div style="width:100%;height:100%;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;color:#faa403;font-weight:bold;font-size:11px;">ZGBC</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- CLIPS - HIDDEN UNTIL YOU HAVE VIDEOS -->
+{% comment %}
+<div style="padding:60px 15px;background:#01000a;">
+  <h2 style="text-align:center;color:white;font-weight:800;">Our Exclusive Service <span style="color:#faa403;">Clips!</span></h2>
+  <p style="text-align:center;color:#666;font-size:14px;">Swipe to watch powerful moments</p>
+  <div class="clips-scroll" style="display:flex;gap:14px;overflow-x:auto;max-width:1100px;margin:25px auto 0;padding-bottom:15px;">
+    <iframe width="220" height="390" src="https://www.youtube.com/embed/ScMzIvxBSi4" style="border-radius:18px;flex-shrink:0;border:none;" allowfullscreen></iframe>
+  </div>
+</div>
+{% endcomment %}
+
+<!-- TESTIMONIES PREMIUM -->
+<div style="background:linear-gradient(180deg,#03020a 0%,#000000 100%);padding:70px 15px;text-align:center;color:white;border-top:1px solid #1a1a1a;">
+  <h2 style="font-size:12px;letter-spacing:5px;opacity:0.5;font-weight:700;">TESTIMONIES</h2>
+  <h3 style="font-size:28px;font-weight:800;margin:10px 0 25px 0;">What God is Doing <span style="color:#faa403;">Through ZGBC</span></h3>
+  <div id="testimonySlider" style="max-width:750px;margin:0 auto;min-height:130px;position:relative;">
+    <div class="t-slide"><p style="font-size:22px;font-style:italic;line-height:1.4;">"I was healed watching ZGBC TV live! To God be the glory."</p><b style="color:#faa403;">— Sis. Grace, Lagos</b></div>
+    <div class="t-slide" style="display:none;"><p style="font-size:22px;font-style:italic;line-height:1.4;">"My business turned around after partnering with this commission."</p><b style="color:#faa403;">— Bro. John, Abuja</b></div>
+    <div class="t-slide" style="display:none;"><p style="font-size:22px;font-style:italic;line-height:1.4;">"God restored my family via radio prayers. Hallelujah!"</p><b style="color:#faa403;">— Sis. Faith, UK</b></div>
+    <div class="t-slide" style="display:none;"><p style="font-size:22px;font-style:italic;line-height:1.4;">"The Lord granted me success in my final exam!"</p><b style="color:#faa403;">— Bro. Sunday, PH</b></div>
+    <div class="t-slide" style="display:none;"><p style="font-size:22px;font-style:italic;line-height:1.4;">"Job was given to me without interview! God of ZGBC is faithful."</p><b style="color:#faa403;">— Sis. Kate, South Africa</b></div>
+  </div>
+  <div style="margin-top:25px;">
+    <a href="{% url 'core:contact' %}" style="border:1px solid #faa403;color:#faa403;padding:10px 24px;border-radius:25px;text-decoration:none;font-size:14px;">Share Your Testimony</a>
+  </div>
+</div>
+
+<script>
+let idx=0; const slides=document.querySelectorAll('.t-slide');
+setInterval(()=>{slides[idx].style.display='none'; idx=(idx+1)%slides.length; slides[idx].style.display='block';},4000);
+let h=2,m=14,s=33;
+setInterval(()=>{
+  if(s>0)s--; else if(m>0){m--;s=59;} else if(h>0){h--;m=59;s=59;}
+  let el=document.getElementById('countdown');
+  if(el)el.innerText=`Sunday in ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+},1000);
+</script>
+<!-- LEFT BOTTOM AUDIO PLAYER -->
+<div id="zgbc-audio-player" style="position:fixed; bottom:20px; left:20px; z-index:99999; background:linear-gradient(135deg, #1a1a2e, #000); border:1.5px solid #faa403; border-radius:50px; padding:8px 15px; display:flex; align-items:center; gap:12px; box-shadow:0 5px 25px rgba(250,164,3,0.4);">
+  
+  <button id="playBtn" style="width:42px; height:42px; border-radius:50%; background:#faa403; border:none; color:black; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center;">
+    <i class="fa-solid fa-play" id="playIcon"></i>
+  </button>
+  
+  <div style="color:white;">
+    <div style="font-size:11px; color:#faa403; font-weight:bold; letter-spacing:1px;">ZGBC RADIO</div>
+    <div style="font-size:13px; font-weight:600; margin-top:1px;">Live Worship</div>
+  </div>
+
+  <audio id="zgbcAudio" preload="auto">
+    <!-- REPLACE WITH YOUR MP3 LINK -->
+    <source src="{% static 'audio/worship2.mp3' %}" type="audio/mpeg">
+    <!-- OR USE ONLINE STREAM: <source src="https://your-stream-url.mp3" type="audio/mpeg"> -->
+  </audio>
+
+  <div style="width:70px; display:flex; align-items:center; gap:6px;">
+    <i class="fa-solid fa-volume-high" style="color:#faa403; font-size:12px;"></i>
+    <input type="range" id="vol" min="0" max="1" step="0.1" value="0.7" style="width:50px; accent-color:#faa403;">
+  </div>
+</div>
+
+<script>
+const audio = document.getElementById('zgbcAudio');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const vol = document.getElementById('vol');
+let isPlaying = false;
+
+playBtn.onclick = () => {
+  if(isPlaying){ audio.pause(); playIcon.className='fa-solid fa-play'; }
+  else { audio.play(); playIcon.className='fa-solid fa-pause'; }
+  isPlaying = !isPlaying;
+};
+
+vol.oninput = () => audio.volume = vol.value;
+
+// Optional: Auto play muted first (browsers block autoplay with sound)
+// window.addEventListener('load', () => { audio.volume=0.7; audio.play().catch(()=>{}); });
+</script>
+
+<!-- ========== EMAIL SUBSCRIBE - FIXED ========== -->
+<section style="background:#08070f; padding:70px 15px; border-top:1px solid rgba(250,164,3,0.2); border-bottom:1px solid rgba(250,164,3,0.2);">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6 text-center text-lg-start">
+        <h2 style="color:white; font-weight:800; font-size:28px;">Stay <span style="color:#faa403;">Connected</span></h2>
+        <p style="color:#999; margin-top:10px; font-size:14px;">Get weekly sermons, prayer points & prophetic declarations from Apostle Henry Leboku directly to your inbox. No spam.</p>
+      </div>
+      <div class="col-lg-6">
+        <form method="POST" action="{% url 'core:subscribe' %}" class="d-flex flex-column flex-sm-row gap-2">
+          {% csrf_token %}
+          <input type="email" name="email" required placeholder="Enter your email address" 
+                 class="form-control form-control-lg" 
+                 style="border-radius:50px; background:#000; border:1px solid #333; color:white; padding:14px 22px;">
+          <button type="submit" class="btn btn-lg fw-bold" style="background:#faa403; color:#000; border-radius:50px; padding:14px 30px; white-space:nowrap;">
+            Subscribe <i class="fa-solid fa-paper-plane ms-2"></i>
+          </button>
+        </form>
+        <small style="color:#666; display:block; margin-top:8px; text-align:center;" class="text-lg-start">Join {{ subscribers_count|default:"500" }}+ believers • Unsubscribe anytime</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+@media(max-width:600px){
+  #zgbc-audio-player{ bottom:80px !important; left:10px !important; padding:6px 10px !important; }
+  #zgbc-audio-player div:last-child{ display:none !important; }
+}
+</style>
+
+{% endblock %}

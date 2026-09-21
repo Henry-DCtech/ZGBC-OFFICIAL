@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container py-5">
+    <h1 class="mb-4">Sermons</h1>
+    <div class="row">
+        {% for sermon in sermons %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                {% if sermon.thumbnail %}
+                <img src="{{ sermon.thumbnail.url }}" class="card-img-top" alt="{{ sermon.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ sermon.title }}</h5>
+                    <p class="text-muted">{{ sermon.date|date:"M d, Y" }} | {{ sermon.preacher }}</p>
+                    <p class="card-text">{{ sermon.description|truncatewords:20 }}</p>
+                    <a href="{% url 'sermon_detail' sermon.pk %}" class="btn btn-primary">Watch</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No sermons yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

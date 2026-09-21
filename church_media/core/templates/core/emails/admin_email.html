@@ -1,0 +1,20 @@
+{% extends 'core/emails/base_email.html' %}
+
+{% block content %}
+<h2>New Ministry Booking Request</h2>
+<p>A new booking has been submitted on the website.</p>
+
+<div class="details">
+    <p><span class="label">Name:</span> {{ booking.full_name }}</p>
+    <p><span class="label">Email:</span> {{ booking.email }}</p>
+    <p><span class="label">Phone:</span> {{ booking.phone }}</p>
+    <p><span class="label">Church:</span> {{ booking.church_name }}</p>
+    <p><span class="label">Event Date:</span> {{ booking.event_date|date:"l, F d, Y" }}</p>
+    <p><span class="label">Event Time:</span> {{ booking.event_time|time:"g:i A" }}</p>
+    <p><span class="label">Venue:</span> {{ booking.event_address }}</p>
+    <p><span class="label">Message:</span><br>{{ booking.message|default:"No additional message"|linebreaksbr }}</p>
+    <p><span class="label">Status:</span> {{ booking.get_status_display }}</p>
+</div>
+
+<a href="{{ site_url }}/admin/core/ministrybooking/{{ booking.id }}/change/" class="btn">Review in Admin</a>
+{% endblock %}

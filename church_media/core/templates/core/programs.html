@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Programs - ZGBC{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'core/css/program.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">Our Programs</h1>
+        <p class="lead">Join us in worship and fellowship</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Sunday Service -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fa-solid fa-church text-primary me-2"></i>Sunday Service
+                    </h5>
+                    <p class="card-text">Experience powerful worship, word, and fellowship every Sunday morning.</p>
+                    <p class="text-muted mb-0">
+                        <i class="fa-solid fa-clock me-2"></i>8:00AM 
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Midweek Service -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fa-solid fa-book-bible text-primary me-2"></i>Bible Study
+                    </h5>
+                    <p class="card-text">Deep dive into the Word of God every Wednesday evening.</p>
+                    <p class="text-muted mb-0">
+                        <i class="fa-solid fa-clock me-2"></i>5:00PM 
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fa-solid fa-hands-praying text-primary me-2"></i>Prophetic Hour of Mercy
+                    </h5>
+                    <p class="card-text">International intercessory and breakthrough prayer every Monday.</p>
+                    <p class="text-muted mb-0">
+                        <i class="fa-solid fa-clock me-2"></i>8:00PM
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Prayer Meeting -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fa-solid fa-hands-praying text-primary me-2"></i>Church Prayer Meeting
+                    </h5>
+                    <p class="card-text">Join us for VIGIL on last Friday of every month.</p>
+                    <p class="text-muted mb-0">
+                        <i class="fa-solid fa-clock me-2"></i>10:00PM
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="fa-solid fa-hands-praying text-primary me-2"></i>Counseling Hour
+                    </h5>
+                    <p class="card-text">Our Counseling section holds every Saturday.</p>
+                    <p class="text-muted mb-0">
+                        <i class="fa-solid fa-clock me-2"></i>12:00PM - 3:00PM
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

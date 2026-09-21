@@ -1,0 +1,20 @@
+Dear {{ booking.full_name }},
+
+Thank you for your ministry booking request with Zion Global Bible Church.
+
+We have received your request for:
+Date: {{ booking.event_date|date:"l, F d, Y" }}
+Time: {{ booking.event_time|time:"g:i A" }}
+Venue: {{ booking.event_address }}
+Booking: {{ booking.church_name }} on {{ booking.event_date }} for {{ booking.email }}
+
+Your booking status is currently: PENDING
+
+Our team will review and get back to you within 48 hours to confirm availability.
+
+Important: Bookings must be confirmed by our team before they are final.
+
+If you have questions, reply to this email or call us.
+
+Blessings,
+Zion Global Bible Church

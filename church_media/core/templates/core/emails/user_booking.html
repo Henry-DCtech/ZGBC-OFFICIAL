@@ -1,0 +1,19 @@
+{% extends 'core/emails/base_email.html' %}
+
+{% block content %}
+Booking: {{ booking.church_name }} on {{ booking.event_date }} for {{ booking.email }}
+<h2>Booking Request Received</h2>
+<p>Dear {{ booking.full_name }},</p>
+<p>Thank you for your ministry booking request. We have received your details and will review them shortly.</p>
+
+<div class="details">
+    <p><span class="label">Event Date:</span> {{ booking.event_date|date:"l, F d, Y" }}</p>
+    <p><span class="label">Event Time:</span> {{ booking.event_time|time:"g:i A" }}</p>
+    <p><span class="label">Venue:</span> {{ booking.event_address }}</p>
+    <p><span class="label">Status:</span> PENDING CONFIRMATION</p>
+</div>
+
+<p><strong>Important:</strong> Your booking is not confirmed yet. Our team will contact you within 48 hours to confirm availability.</p>
+
+<p>Blessings,<br>Zion Global Bible Church</p>
+{% endblock %}

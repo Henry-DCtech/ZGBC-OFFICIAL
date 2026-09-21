@@ -1,0 +1,7 @@
+Hello {{ booking.name }},
+
+Your booking for {{ booking.ministry }} on {{ booking.date }} has been CONFIRMED!
+
+We look forward to seeing you.
+
+ZGBC Church Media

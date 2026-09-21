@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sermons - Zion Global Bible Church{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Page Header -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-5 fw-bold">Sermons</h1>
+            <p class="lead text-muted">Watch and listen to past messages</p>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <form method="get" action="{% url 'core:sermons' %}">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search sermons..." 
+                           value="{{ request.GET.q }}">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sermon Grid -->
+    <div class="row">
+        {% for sermon in sermons %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if sermon.thumbnail %}
+                <img src="{{ sermon.thumbnail.url }}" class="card-img-top" alt="{{ sermon.title }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'images/default-sermon.jpg' %}" class="card-img-top" alt="Default" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ sermon.title }}</h5>
+                    <p class="card-text text-muted small mb-1">
+                        <i class="bi bi-person"></i> {{ sermon.preacher }}
+                    </p>
+                    <p class="card-text text-muted small mb-2">
+                        <i class="bi bi-calendar"></i> {{ sermon.date|date:"M d, Y" }}
+                    </p>
+                    <p class="card-text">{{ sermon.description|truncatewords:20 }}</p>
+                    
+                    <div class="mt-auto">
+                        <a href="{% url 'core:sermon_detail' sermon.pk %}" class="btn btn-outline-primary w-100">
+                            Watch Sermon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <i class="bi bi-info-circle"></i> No sermons found.
+                {% if request.GET.q %} Try a different search.{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Sermon pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock %}

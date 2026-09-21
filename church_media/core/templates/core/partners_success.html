@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="container py-5 text-center" style="max-width:600px;">
+  <div style="background:#030a2e;border:2px solid #faa403;border-radius:20px;padding:30px;color:white;">
+    <h1 style="color:#faa403;">🎉 Thank You, {{ partner.name }}!</h1>
+    <p>Your partnership is received in Heaven!</p>
+
+    <div style="background:rgba(250,164,3,0.1);border-radius:15px;padding:20px;margin:20px 0;text-align:left;">
+      <p><b>Receipt:</b> {{ partner.receipt_number }}</p>
+      <p><b>Amount:</b> ₦{{ partner.amount }}</p>
+      <p><b>Date:</b> {{ partner.created_at }}</p>
+    </div>
+
+    <a href="{{ receipt_url }}" target="_blank" class="btn btn-warning rounded-pill px-4 fw-bold" style="background:#faa403;color:#000;">
+      <i class="fa-solid fa-download"></i> Download Receipt PDF
+    </a>
+
+    <br><br>
+
+    <a href="{{ wa_link }}" target="_blank" class="btn rounded-pill px-4 fw-bold" style="background:#25D366;color:white;">
+      <i class="fa-brands fa-whatsapp"></i> Send Confirmation on WhatsApp
+    </a>
+
+    <div style="margin-top:25px;">
+      <a href="{% url 'core:prayer_request' %}" style="color:#faa403;">You can make your prayer request through this link</a>
+    </div>
+
+    <p style="margin-top:20px;font-size:12px;opacity:0.6;">A copy has been sent to zionglobalbiblechurch@gmail.com</p>
+  </div>
+</div>
+{% endblock %}

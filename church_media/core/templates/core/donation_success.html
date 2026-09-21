@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Donation Successful - ZGBC RTV{% endblock %}
+
+{% block content %}
+<section class="py-5" style="min-height: 80vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-5">
+                        <i class="bi bi-check-circle-fill" style="font-size: 5rem; color: #28a745;"></i>
+                        <h1 class="fw-bold mt-4 mb-3">Thank You!</h1>
+                        <p class="fs-5 text-muted">Your donation was successful</p>
+                        
+                        <div class="bg-light p-4 rounded-3 my-4 text-start">
+                            <div class="row mb-2">
+                                <div class="col-6">Reference:</div>
+                                <div class="col-6 text-end fw-bold">{{ donation.reference }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6">Amount:</div>
+                                <div class="col-6 text-end fw-bold">{{ currency_symbol }}{{ donation.amount }}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-6">Name:</div>
+                                <div class="col-6 text-end fw-bold">{{ donation.name }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">Type:</div>
+                                <div class="col-6 text-end fw-bold">{{ donation.get_donation_type_display }}</div>
+                            </div>
+                        </div>
+                        
+                        <p class="text-muted">A receipt has been sent to {{ donation.email }}</p>
+                        
+                        <a href="{% url 'core:home' %}" class="btn btn-primary btn-lg mt-3" style="border-radius: 15px;">
+                            <i class="bi bi-house"></i> Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

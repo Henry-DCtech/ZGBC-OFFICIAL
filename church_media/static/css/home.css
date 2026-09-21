@@ -1,0 +1,50 @@
+/* static/core/css/home.css */
+.home-page .hero-section {
+    min-height: 90vh;
+    background: linear-gradient(rgba(175, 184, 205, 0.8), rgba(171, 189, 234, 0.9)), url('../images/church-hero.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    --text-color: #e7c104;
+    
+}
+
+.home-page .section-padding {
+    padding: 80px 0;
+}
+
+.home-page .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+/* ===== MOBILE FIX FOR ZGBC ===== */
+* { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+html, body { overflow-x: hidden; }
+
+/* All grids become 1 column on phone */
+@media(max-width: 768px){
+  .hero, .row, .flex, .grid, [style*="display:flex"], [style*="display: grid"], [style*="grid-template-columns"]{
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+  }
+  
+  h1{ font-size:28px !important; line-height:1.2 !important; }
+  h2{ font-size:22px !important; }
+  
+  .container, section, div[style*="width:"]{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:15px !important;
+    padding-right:15px !important;
+  }
+  
+  table{ display:block; overflow-x:auto; white-space:nowrap; }
+  
+  /* Your dashboard cards */
+  div[style*="grid-template-columns: repeat"]{
+    grid-template-columns:1fr !important;
+  }
+}
+
+

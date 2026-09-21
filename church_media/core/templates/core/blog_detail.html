@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} - ZGBC OFFICIAL{% endblock %}
+
+{% block content %}
+<!-- Post Header -->
+<section class="py-5 text-white">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <span class="badge bg-warning text-dark mb-3">{{ post.category.name }}</span>
+                <h1 class="display-5 fw-bold">{{ post.title }}</h1>
+                <div class="d-flex justify-content-center gap-3 mt-3 small">
+                    <span><i class="fa-solid fa-user me-1"></i>{{ post.author.get_full_name|default:post.author.username }}</span>
+                    <span><i class="fa-regular fa-calendar me-1"></i>{{ post.created_at|date:"M d, Y" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Post Content -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% if post.featured_image %}
+                <img src="{{ post.featured_image.url }}" class="img-fluid rounded shadow mb-4" alt="{{ post.title }}">
+                {% endif %}
+                
+                <div class="blog-content">
+                    {{ post.content|linebreaks }}
+                </div>
+
+                <hr class="my-5">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'core:blog' %}" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-arrow-left me-2"></i>Back to Blog
+                    </a>
+                    <div>
+                        <span class="text-muted me-2">Share:</span>
+                        <a href="#" class="text-primary me-2"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="https://twitter.com/@LebokuH" class="text-info me-2"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="https://instagram.com/@ziongbc" class="text-success"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="2349131245154" class="text-success"><i class="fab fa-whatsapp fa-lg"></i></a>
+                        <a href="https://tiktok.com/@zgbcmedia" class="text-success"><i class="fab fa-tiktok fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Related Posts -->
+{% if related_posts %}
+<section class="section-padding bg-light">
+    <div class="container">
+        <h3 class="text-center mb-4">Related Posts</h3>
+        <div class="row g-4">
+            {% for related in related_posts %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 border-0 shadow-sm">
+                    {% if related.featured_image %}
+                    <img src="{{ related.featured_image.url }}" class="card-img-top" alt="{{ related.title }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <small class="text-muted">{{ related.created_at|date:"M d, Y" }}</small>
+                        <h6 class="card-title mt-2">
+                            <a href="{% url 'core:blog_detail' related.slug %}" class="text-dark text-decoration-none">{{ related.title }}</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

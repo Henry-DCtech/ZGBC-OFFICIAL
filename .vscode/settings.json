@@ -1,0 +1,29 @@
+{
+    "cSpell.ignoreWords": [
+        "Ilesa",
+        "Kajoyo",
+        "Kobongbogboe",
+        "Leboku",
+        "Leboku's",
+        "Mixlr",
+        "Osogbo",
+        "Osun",
+        "PAYSTACK",
+        "Segoe",
+        "ZGBC",
+        "ZIONGBC",
+        "bgkmain",
+        "idoreyin",
+        "rgba",
+        "translatex",
+        "uidb"
+    ],
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:ZGBC_RTV}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    }
+}

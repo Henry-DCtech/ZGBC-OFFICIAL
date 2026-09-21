@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Events - ZGBC OFFICIAL{% endblock %}
+{% block extra_css %}
+<!-- <link rel="stylesheet" href="{% static 'core/css/style.css' %}"> -->
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <!-- content  -->
+        <h1 class="section-title text-center">Upcoming Events</h1>
+        
+        <div class="row g-4 mt-4">
+            {% for event in events %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    {% if event.image %}
+                    <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 220px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="text-muted mb-2">
+                            <i class="fas fa-calendar-alt me-1"></i> {{ event.date|date:"M d, Y" }}
+                        </p>
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}
+                        </p>
+                        <p class="card-text">{{ event.description|truncatewords:20 }}</p>
+                        <a href="{% url 'core:event_detail' event.pk %}" class="btn btn-primary mt-auto">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fa-regular fa-calendar-xmark fa-3x text-muted mb-3"></i>
+                <p class="lead text-muted">No upcoming events at the moment.</p>
+                <p>Check back soon for new events.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

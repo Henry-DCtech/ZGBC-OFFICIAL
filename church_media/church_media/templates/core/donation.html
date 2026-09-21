@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Donation - Zion Global Media{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4 text-center">Support the Ministry</h1>
+        <div class="card">
+            <div class="card-body">
+                <p>Your generous giving helps us broadcast the Gospel 24/7 across radio, TV, and online.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Amount</label>
+                        <input type="number" class="form-control" name="amount" placeholder="50">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Purpose</label>
+                        <select class="form-select" name="purpose">
+                            <option>Tithe</option>
+                            <option>Offering</option>
+                            <option>Media Project</option>
+                            <option>Building Fund</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Donate Now</button>
+                </form>
+                <hr>
+                <p class="text-muted small">Secure payment via Paystack. For bank transfer: 0123456789 - Zion Bank</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

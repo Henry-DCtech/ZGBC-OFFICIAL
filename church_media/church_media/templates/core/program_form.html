@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Add Program to Schedule</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Save Program</button>
+        <a href="{% url 'schedule' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

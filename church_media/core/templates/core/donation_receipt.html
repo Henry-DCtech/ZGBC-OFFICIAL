@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #2a2929;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+    <h2 style="color: #198754;">Thank You for Your {{ donation.get_donation_type_display }}</h2>
+    
+    <p>Dear {{ donation.donor_name|default:"Friend" }},</p>
+    
+    <p>We have received your {{ donation.get_donation_type_display|lower }} of <strong>₦{{ donation.amount|floatformat:2 }}</strong>. 
+    May God bless you abundantly for your faithfulness.</p>
+    
+    <div style="background: #d4ae02; padding: 15px; border-radius: 5px; margin: 20px 0;">
+      <table style="width: 100%;">
+        <tr>
+          <td style="padding: 5px 0;"><strong>Amount:</strong></td>
+          <td>₦{{ donation.amount|floatformat:2 }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Type:</strong></td>
+          <td>{{ donation.get_donation_type_display }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Reference:</strong></td>
+          <td>{{ donation.reference }}</td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Date:</strong></td>
+          <td>{{ donation.created_at|date:"F d, Y h:i A" }}</td>
+        </tr>
+        {% if donation.project %}
+        <tr>
+          <td style="padding: 5px 0;"><strong>Project:</strong></td>
+          <td>{{ donation.project }}</td>
+        </tr>
+        {% endif %}
+      </table>
+    </div>
+
+    {% if donation.message %}
+    <p><strong>Your Message:</strong><br>{{ donation.message }}</p>
+    {% endif %}
+
+    <p style="margin-top: 30px;">"Bring the whole tithe into the storehouse, that there may be food in my house. 
+    Test me in this,” says the Lord Almighty, “and see if I will not throw open the floodgates of heaven 
+    and pour out so much blessing that there will not be room enough to store it." - Malachi 3:10</p>
+
+    <p>Blessings,<br>
+    <strong>ZGBC Finance Team</strong></p>
+    
+    <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+    <p style="font-size: 12px; color: #777;">
+      This is an automated receipt. Keep this email for your records. <br>
+      For questions, contact {{ admin_email }} with reference: {{ donation.reference }}
+    </p>
+  </div>
+</body>
+</html>

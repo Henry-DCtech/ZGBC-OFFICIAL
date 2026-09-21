@@ -1,0 +1,57 @@
+/* base.css */
+:root {
+    --bg-color: #000000;
+    --card-bg: #000307;
+    --primary-color: #2270ef;
+    --primary-hover: #1658e7;
+    --text-color: #ffffff;
+    /* --text-muted: #ffc800; */
+    --input-bg: #000000;
+    --border-color: #515d6d;
+    --error-color: #ef4444;
+    --font-family: 'Segoe UI', system-ui, sans-serif;
+    --font-size-base: 16px;
+    --border-radius: 12px;
+}
+
+/* body { border: 5px solid red !important; } */
+
+* {
+    margin: 1;
+    padding: 10;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+/* Navbar overrides */
+.navbar {
+    background: #010418 !important;
+}
+
+.navbar .nav-link.btn-link {
+    border: none;
+    background: none;
+    padding: 0.5rem 1rem;
+    color: rgba(255, 255, 255, 0.94);
+}
+
+.navbar .nav-link.btn-link:hover {
+    color: rgba(255, 255, 255, 0.96);
+}
+
+/* Footer stays dark */
+footer {
+    background: #010318;
+}
+
+.text-muted {
+--bs-text-muted-opacity: 1;
+color: #ffae00 !important;
+}

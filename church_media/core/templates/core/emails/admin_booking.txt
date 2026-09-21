@@ -1,0 +1,21 @@
+New Ministry Booking Request
+
+Booking: {{ booking.church_name }} on {{ booking.event_date }} for {{ booking.email }}
+Name: {{ booking.full_name }}
+Email: {{ booking.email }}
+Phone: {{ booking.phone }}
+Church: {{ booking.church_name }}
+
+Event Date: {{ booking.event_date|date:"l, F d, Y" }}
+Event Time: {{ booking.event_time|time:"g:i A" }}
+Venue: {{ booking.event_address }}
+
+Message:
+{{ booking.message|default:"No additional message" }}
+
+Status: {{ booking.get_status_display }}
+
+Login to admin to confirm: http://127.0.0.1:8000/admin/core/ministrybooking/{{ booking.id }}/change/
+
+God bless,
+Zion Global Website

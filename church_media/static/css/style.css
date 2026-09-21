@@ -1,0 +1,169 @@
+<style>
+    :root {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --primary-color: #3b82f6;
+        --primary-hover: #2563eb;
+        --text-color: #f1f5f9;
+        --text-muted: #ffd500;
+        --input-bg: #334155;
+        --border-color: #475569;
+        --error-color: #ef4444;
+        --font-family: 'Segoe UI', system-ui, sans-serif;
+        --font-size-base: 16px;
+        --border-radius: 12px;
+    }
+
+    * {
+        margin: 2;
+        padding: 10;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+    }
+
+    .login-card {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: var(--border-radius);
+        width: 100%;
+        max-width: 440px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .login-card h1 {
+        font-size: 1.875rem;
+        margin-bottom: 8px;
+        text-align: center;
+    }
+
+    .login-card p {
+        color: var(--text-muted);
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        background: var(--input-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-color);
+        font-size: 16px;  /* Important: prevents iOS zoom */
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    .error-text {
+        color: var(--error-color);
+        font-size: 0.875rem;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .btn {
+        width: 100%;
+        background: var(--primary-color);
+        color: white;
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn:hover {
+        background: var(--primary-hover);
+    }
+
+    .extra-links {
+        margin-top: 24px;
+        text-align: center;
+        color: var(--text-muted);
+    }
+
+    .extra-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .forgot {
+        display: block;
+        text-align: right;
+        margin-top: -12px;
+        margin-bottom: 20px;
+        font-size: 0.875rem;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 480px) {
+        body {
+            padding: 16px;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        
+        .login-card {
+            padding: 24px;
+            border-radius: 8px;
+        }
+        
+        .login-card h1 {
+            font-size: 1.5rem;
+        }
+        
+        .login-card p {
+            margin-bottom: 24px;
+        }
+    }
+    /* ===== MOBILE FIX FOR ZGBC ===== */
+* { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+html, body { overflow-x: hidden; }
+
+/* All grids become 1 column on phone */
+@media(max-width: 768px){
+  .hero, .row, .flex, .grid, [style*="display:flex"], [style*="display: grid"], [style*="grid-template-columns"]{
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+  }
+  
+  h1{ font-size:28px !important; line-height:1.2 !important; }
+  h2{ font-size:22px !important; }
+  
+  .container, section, div[style*="width:"]{
+    width:100% !important;
+    max-width:100% !important;
+    padding-left:15px !important;
+    padding-right:15px !important;
+  }
+  
+  table{ display:block; overflow-x:auto; white-space:nowrap; }
+  
+  /* Your dashboard cards */
+  div[style*="grid-template-columns: repeat"]{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>

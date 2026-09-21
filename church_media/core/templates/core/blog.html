@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Zion Global Bible Church{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="py-5 text-white">
+    <div class="container text-center py-4">
+        <h1 class="display-4 fw-bold">Church Blog</h1>
+        <p class="lead mb-0">Articles, devotionals, and updates to strengthen your faith</p>
+    </div>
+</section>
+
+<!-- Blog Posts Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row g-4">
+            {% for post in posts %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    {% if post.featured_image %}
+                    <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 220px; object-fit: cover;">
+                    {% else %}
+                    <img src="{% static 'core/images/blog-placeholder.jpg' %}" class="card-img-top" alt="{{ post.title }}" style="height: 220px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary">{{ post.category.name }}</span>
+                            <small class="text-muted">
+                                <i class="fa-regular fa-calendar me-1"></i>{{ post.created_at|date:"M d, Y" }}
+                            </small>
+                        </div>
+                        <h5 class="card-title">
+                            <a href="{% url 'core:blog_detail' post.slug %}" class="text-dark text-decoration-none">{{ post.title }}</a>
+                        </h5>
+                        <p class="card-text text-muted">{{ post.excerpt|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-user-circle me-2 text-muted"></i>
+                            <small class="text-muted">{{ post.author.get_full_name|default:post.author.username }}</small>
+                        </div>
+                        <a href="{% url 'core:blog_detail' post.slug %}" class="btn btn-sm btn-outline-primary">
+                            Read More <i class="fa-solid fa-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="fa-regular fa-newspaper fa-3x text-muted mb-3"></i>
+                <h4>No posts yet</h4>
+                <p class="text-muted">Check back soon for new articles and devotionals.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if posts.has_other_pages %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.previous_page_number }}">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="fa-solid fa-chevron-left"></i></span>
+                </li>
+                {% endif %}
+
+                {% for num in posts.paginator.page_range %}
+                    {% if posts.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > posts.number|add:'-3' and num < posts.number|add:'5' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="fa-solid fa-chevron-right"></i></span>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

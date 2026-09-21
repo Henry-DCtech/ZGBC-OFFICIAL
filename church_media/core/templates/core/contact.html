@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact Us - ZGBC OFFICIAL{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold">CONTACT US</h1>
+                <p class="lead text-muted">We'd love to hear from you and we can improve our services. Send us a message below.</p>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" action="{% url 'core:contact' %}">
+                        {% csrf_token %}
+                        
+                        <div class="row g-3">
+                            <!-- Name Field -->
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <!-- Phone Field -->
+                            <div class="col-12">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone">
+                            </div>
+
+                            <!-- Subject Field -->
+                            <div class="col-12">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" name="subject" required>
+                            </div>
+
+                            <!-- Message Field -->
+                            <div class="col-12">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="fa-solid fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="row text-center mt-5 g-4">
+                <div class="col-md-4">
+                    <i class="fa-solid fa-location-dot fa-2x text-primary mb-2"></i>
+                    <h6>Address</h6>
+                    <p class="text-muted small">123 ABC Street, Osogbo <br>Osun State, Nigeria</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa-solid fa-phone fa-2x text-primary mb-2"></i>
+                    <h6>Phone</h6>
+                    <p class="text-muted small">+234 913 124 5154</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="fa-solid fa-envelope fa-2x text-primary mb-2"></i>
+                    <h6>Email</h6>
+                    <p class="text-muted small">zionglobalbiblechurch@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+     
+</div>
+<!-- <img src="{% static 'core/images/wat1.png' %}" alt="WhatsApp" width="100" class="bg-white p-1 rounded"> -->
+</section>
+{% endblock %}

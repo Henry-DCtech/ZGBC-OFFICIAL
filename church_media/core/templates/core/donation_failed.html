@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Payment Failed | ZGBC OFFICIAL{% endblock %}
+
+{% block content %}
+<div class="bg-light" style="min-height: 100vh;">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 col-md-7">
+        <div class="card give-card text-center">
+          <div class="card-body p-5">
+            <div class="mb-4">
+              <div class="bg-danger bg-opacity-10 d-inline-flex p-3 rounded-circle">
+                <i class="bi bi-x-lg text-danger" style="font-size: 3rem;"></i>
+              </div>
+            </div>
+            
+            <h2 class="fw-bold text-danger mb-2">Payment Failed</h2>
+            <p class="text-muted mb-4">We couldn't process your {{ donation.get_donation_type_display|lower }}</p>
+            
+            <div class="alert alert-light text-start small">
+              <strong>Amount:</strong> ₦{{ donation.amount|intcomma }}<br>
+              <strong>Reference:</strong> {{ donation.reference }}<br>
+              <strong>Status:</strong> <span class="text-danger">Not charged</span>
+            </div>
+
+            <p class="text-muted mb-4">No money was deducted. This usually happens due to network issues or cancelled transaction.</p>
+            
+            <div class="d-grid gap-2">
+              <a href="{% url 'donate' %}" class="btn btn-danger btn-give">Try Again</a>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Home</a>
+            </div>
+
+            <p class="small text-muted mt-4">
+              Need help? Email us with ref: {{ donation.reference }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

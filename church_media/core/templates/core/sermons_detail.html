@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container py-5">
+    <h1>{{ sermon.title }}</h1>
+    <p class="text-muted">{{ sermon.date|date:"F d, Y" }} | Preacher: {{ sermon.preacher }}</p>
+    
+    {% if sermon.video_url %}
+    <div class="ratio ratio-16x9 mb-4">
+        <iframe src="{{ sermon.video_url }}" allowfullscreen></iframe>
+    </div>
+    {% endif %}
+    
+    {% if sermon.audio_file %}
+    <audio controls class="w-100 mb-4">
+        <source src="{{ sermon.audio_file.url }}">
+    </audio>
+    {% endif %}
+    
+    <div class="mt-4">
+        {{ sermon.description|linebreaks }}
+    </div>
+    
+    <a href="{% url 'sermon_list' %}" class="btn btn-secondary mt-4">← Back to Sermons</a>
+</section>
+{% endblock %}

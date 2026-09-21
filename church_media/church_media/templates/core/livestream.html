@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Live Stream - Zion Global Media{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 text-center">Live Broadcast</h1>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <video id="live-video" class="video-js vjs-fluid vjs-default-skin" controls preload="auto" data-setup='{}'>
+            <source src="https://your-stream-url.m3u8" type="application/x-mpegURL">
+            <p class="vjs-no-js">To view this video please enable JavaScript</p>
+        </video>
+        <div class="mt-3 text-center">
+            <span class="badge bg-danger">LIVE</span>
+            <h4 class="mt-2">Sunday Morning Service</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

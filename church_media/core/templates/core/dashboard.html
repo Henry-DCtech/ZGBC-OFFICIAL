@@ -1,0 +1,154 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<style>
+@keyframes pulse { 0%{opacity:1} 50%{opacity:0.3} 100%{opacity:1} }
+</style>
+
+<div class="container py-4">
+  <h2 style="color:white;">👑 ZGBC Admin Dashboard</h2>
+  <div style="text-align:right; margin:10px 0;">
+  <a href="{% url 'core:export_excel' %}" style="background:#10b981; color:white; padding:8px 18px; border-radius:20px; text-decoration:none; font-size:13px; font-weight:bold;">
+    <i class="fa-solid fa-file-excel"></i> Export Excel
+  </a>
+  <button onclick="location.reload()" style="background:#faa403; color:black; border:none; padding:8px 18px; border-radius:20px; font-size:13px; font-weight:bold; margin-left:8px;">
+    <i class="fa-solid fa-rotate"></i> Refresh
+  </button>
+</div>
+
+  <!-- TOP 2 CARDS -->
+  <div class="row g-3 mt-2">
+    <div class="col-md-3">
+      <div style="background:linear-gradient(135deg,#030a2e,#001a66);border:1px solid #00ff88;border-radius:15px;padding:20px;color:white;position:relative;">
+        <span style="position:absolute;top:10px;right:10px;width:10px;height:10px;background:#00ff88;border-radius:50%;box-shadow:0 0 10px #00ff88;animation: pulse 1.5s infinite;"></span>
+        <h6 style="color:#00ff88;">🔴 LIVE Online Now</h6>
+        <h2 style="color:#00ff88;">{{ total_online }}</h2>
+        <small>Worldwide Active</small>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div style="background:#030a2e;border:1px solid #faa403;border-radius:15px;padding:20px;color:white;">
+        <h6>🌍 Total Members</h6>
+        <h2 style="color:#faa403;">{{ total_partners }}</h2>
+        <small>All Partners</small>
+      </div>
+    </div>
+    <div class="col-md-3"><div style="background:#030a2e;border:1px solid #faa403;border-radius:15px;padding:20px;color:white;"><h6>Total Partnership</h6><h2 style="color:#25D366;">₦{{ total_amount|floatformat:2 }}</h2></div></div>
+    <div class="col-md-3"><div style="background:#030a2e;border:1px solid #faa403;border-radius:15px;padding:20px;color:white;"><h6>Prayer Requests</h6><h2 style="color:#ff6b6b;">{{ total_prayers }}</h2></div></div>
+  </div>
+
+  <!-- TITHE & OFFERING -->
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">    <div style="background:linear-gradient(135deg,#059669,#10b981); padding:25px; border-radius:15px; color:white; text-align:center;">
+      <h6>💰 Total Tithe Online</h6>
+      <h1>₦{{ total_tithe|floatformat:2 }}</h1>
+      <small>All Tithe Received</small>
+    </div>
+    <div style="background:linear-gradient(135deg,#d97706,#f59e0b); padding:25px; border-radius:15px; color:white; text-align:center;">
+      <h6>🙏 Total Offering Online</h6>
+      <h1>₦{{ total_offering|floatformat:2 }}</h1>
+      <small>All Offering Received</small>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW -->
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div style="background:#111;border-radius:15px;padding:20px;">
+        <h5 style="color:white; text-align:center;">Tithe vs Offering</h5>
+        <canvas id="tithePieChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="background:#111;border-radius:15px;padding:20px;">
+        <h5 style="color:white; text-align:center;">Partners vs Prayers</h5>
+        <canvas id="givingChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT -->
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5 style="color:white;">Recent Partners</h5>
+      {% for p in recent_partners %}
+      <div style="background:#111;padding:10px;border-radius:10px;margin-bottom:8px;color:white;border-left:3px solid #faa403;">
+        {{ p.name }} - ₦{{ p.amount }} <small style="color:#888;">{{ p.created_at|timesince }}</small>
+      </div>
+      {% empty %}<p style="color:#888;">No partners yet</p>{% endfor %}
+    </div>
+    <div class="col-md-6">
+      <h5 style="color:white;">Recent Prayers</h5>
+      {% for pr in recent_prayers %}
+      <div style="background:#111;padding:10px;border-radius:10px;margin-bottom:8px;color:white;border-left:3px solid #ff6b6b;">
+        {{ pr.name }}: {{ pr.request|truncatechars:50 }}
+      </div>
+      {% empty %}<p style="color:#888;">No prayers yet</p>{% endfor %}
+    </div>
+  </div>
+
+  <!-- LINE GRAPH -->
+  <div style="background:#111; border-radius:15px; padding:20px; margin-top:20px;">
+    <h5 style="color:white; text-align:center;">📈 Last 7 Days - Tithe & Offering Trend</h5>
+    <canvas id="lineChart" height="100"></canvas>
+  </div>
+</div>
+
+<!-- SINGLE chartData - FIXED -->
+<div id="chartData" 
+  data-tithe="{{ total_tithe|default:0 }}" 
+  data-offering="{{ total_offering|default:0 }}" 
+  data-partners="{{ total_partners|default:0 }}" 
+  data-prayers="{{ total_prayers|default:0 }}"
+  data-dates='{{ dates|safe }}'
+  data-tithe-daily='{{ tithe_daily|safe }}'
+  data-offering-daily='{{ offering_daily|safe }}'
+  style="display:none;">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var d = document.getElementById('chartData').dataset;
+  var tithe = parseFloat(d.tithe) || 0;
+  var offering = parseFloat(d.offering) || 0;
+  var partners = parseInt(d.partners) || 0;
+  var prayers = parseInt(d.prayers) || 0;
+
+  if(tithe === 0 && offering === 0){ tithe = 1; offering = 1; }
+  if(partners === 0 && prayers === 0){ partners = 1; prayers = 1; }
+
+  new Chart(document.getElementById('tithePieChart'), {
+    type: 'pie',
+    data: { labels: ['Tithe', 'Offering'], datasets: [{ data: [tithe, offering], backgroundColor: ['#10b981', '#f59e0b'] }] }
+  });
+
+  new Chart(document.getElementById('givingChart'), {
+    type: 'doughnut',
+    data: { labels: ['Partners', 'Prayers'], datasets: [{ data: [partners, prayers], backgroundColor: ['#faa403', '#ff6b6b'] }] }
+  });
+
+  // LINE CHART - FIXED INSIDE SAME FUNCTION
+  try {
+    var datesList = JSON.parse(d.dates);
+    var titheList = JSON.parse(d.titheDaily);
+    var offeringList = JSON.parse(d.offeringDaily);
+
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: datesList,
+        datasets: [
+          { label: 'Tithe', data: titheList, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.2)', tension: 0.4, fill: true },
+          { label: 'Offering', data: offeringList, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.2)', tension: 0.4, fill: true }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: 'white' } } },
+        scales: { x: { ticks: { color: 'white' } }, y: { ticks: { color: 'white' } } }
+      }
+    });
+  } catch(e) { console.log("Chart data error:", e); }
+});
+setTimeout(() => location.reload(), 60000); // auto reload after 1 min
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div style="max-width:800px;margin:40px auto;padding:40px;background:#000004f0;color:#fcfcfc;border-radius:12px;line-height:1.8;">
+<h1 style="text-align:center;margin-bottom:10px;">Terms of Use</h1>
+<p style="text-align:center;color:#faa403;margin-bottom:30px;">Effective Date: September 20, 2026 - ZGBC OFFICIAL</p>
+
+<h3>1. Acceptance</h3><p>By using ZGBC website, TV, Radio, you agree to these terms.</p>
+<h3>2. Accounts</h3><p>You must give true info. You are responsible for your password.</p>
+<h3>3. Donations</h3><p>Voluntary and non-refundable via Paystack. Receipt sent by email. Not a purchase of service.</p>
+<h3>4. Bookings</h3><p>Booking requests require 30 days notice and confirmation by ZGBC.</p>
+<h3>5. Content</h3><p>All sermons, videos © ZGBC. You may share links but not re-upload for commercial use without permission.</p>
+<h3>6. Conduct</h3><p>No spam, hacking, hate speech in forms or prayer requests.</p>
+<h3>7. Governing Law</h3><p>Laws of Federal Republic of Nigeria, Lagos State.</p><br>
+<div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
+  <h3 style="margin:0; color:white;">Contact:</h3>
+  
+  <a href="mailto:zionglobalbiblechurch@gmail.com" style="text-decoration:none; display:flex; align-items:center; gap:8px; background:#111; padding:8px 14px; border-radius:20px; border:1px solid #333;">
+    <i class="fa-solid fa-envelope" style="color:#EA4335;"></i>
+    <span style="color:#ffffff;">zionglobalbiblechurch@gmail.com</span>
+  </a>
+  
+  <a href="tel:+2349131245154" style="text-decoration:none; display:flex; align-items:center; gap:8px; background:#111; padding:8px 14px; border-radius:20px; border:1px solid #333;">
+    <i class="fa-solid fa-phone" style="color:#faa403;"></i>
+    <span style="color:#faa403;">+2349131245154</span>
+  </a>
+</div>
+<p style="margin-top:30px;"><a href="{% url 'core:privacy' %}" style="color:#0432e8;">View Privacy Policy</a></p>
+</div>
+{% endblock %}

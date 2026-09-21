@@ -1,0 +1,76 @@
+church_media/
+  manage.py
+  church_media/
+    settings.py
+    urls.py
+    wsgi.py
+  core/
+
+  emails
+    partner_welcome.html
+
+  templates
+    #---------------htmls
+
+    403.html
+    about.html
+    home.html
+    radio.html
+    tv.html
+    schedule.html
+    sermons.html
+    sermone_list.html
+    sermon_detail.html
+    events.html
+    event.list.html
+    event_detail.html
+    donations.html
+    donation_confirm.html
+    donation_failed.html
+    donation_receipt.html
+    donation_success.html
+    contact.html
+    lading_login.html
+    login.html
+    signup.html
+    program_list.html
+    program.html
+    prayer_requestioin.html
+  
+    #----------------.py
+    models.py
+    middleware.py
+    views.py
+    urls.py
+    admin.py
+    forms.py
+
+templates/
+    base.html
+    
+  static/
+    __css
+      |__bootstrap-custom.css
+      |__style.css
+      |__style.css
+    
+    __js/
+      |__main.js
+    __images/
+      |__logo.png
+  
+  media
+    config
+      png 
+      jpg
+    sermon
+      audio
+      thumbnails
+  
+  statisfiles
+    admin
+    css
+    js
+  .env
+
+

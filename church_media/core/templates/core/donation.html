@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="py-5" style="min-height: 80vh; background: linear-gradient(135deg, #000000 0%, #01000b 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px; background: #111; color: white; border: 1px solid #333 !important;">
+                    <div class="card-body p-5">
+                        <h2 class="fw-bold mb-2 text-center" style="color:#faa403;">Make a Donation</h2>
+                        <p class="text-center mb-4" style="color:#ccc;"><i>"Your donation will be an advantage to advancing the work of God". (Luke 6:38)</i></p>
+                        
+                        <form method="POST" action="{% url 'core:donation' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="full_name" class="form-control" required style="border-radius:10px; background:#1a1a1a; border:1px solid #333; color:white;">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" required style="border-radius:10px; background:#1a1a1a; border:1px solid #333; color:white;">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Donation Type</label>
+                                <select name="donation_type" class="form-select" required style="border-radius:10px; background:#1a1a1a; border:1px solid #333; color:white;">
+                                    <option value="">Select Type</option>
+                                    <option value="Offering">Offering</option>
+                                    <option value="Tithe">Tithe</option>
+                                    <option value="Building Project">Building Project</option>
+                                    <option value="Missions">Missions</option>
+                                    <option value="Partnership">Partnership</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Quick Select Amount</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 20)">$20</button>
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 50)">$50</button>
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 100)">$100</button>
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 250)">$250</button>
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 500)">$500</button>
+                                    <button type="button" class="btn btn-outline-warning amount-btn" onclick="setAmount(this, 1000)">$1000</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Custom Amount</label>
+                                <div class="input-group">
+                                    <select name="currency" id="currency" class="form-select" style="max-width:120px; background:#1a1a1a; border:1px solid #333; color:white; border-radius:10px 0 0 10px;">
+                                        <option value="USD">$ USD</option>
+                                        <option value="NGN" selected>₦ NGN</option>
+                                        <option value="GBP">£ GBP</option>
+                                        <option value="EUR">€ EUR</option>
+                                    </select>
+                                    <input type="number" name="amount" id="amount" class="form-control" placeholder="0.00" step="0.01" min="1" required style="background:#1a1a1a; border:1px solid #333; color:white; border-radius:0 10px 10px 0;">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn w-100 btn-lg" style="border-radius:15px; background:#faa403; color:black; font-weight:bold;">
+                                <i class="bi bi-arrow-right-circle"></i> Give Now
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:25px; background:rgba(250,164,3,0.08); border:1px dashed #faa403; padding:12px 15px; border-radius:12px;">
+                    <i class="fa-solid fa-hands-praying" style="color:#faa403;"></i>
+                    <span style="color:#ccc;"> You can make your prayer request through </span>
+                    <a href="{% url 'core:prayer_request' %}" style="color:#faa403; font-weight:700; text-decoration:none;">this link <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function setAmount(btn, value) {
+    document.getElementById('amount').value = value;
+    // Remove active from all
+    document.querySelectorAll('.amount-btn').forEach(b => {
+        b.classList.remove('btn-warning');
+        b.classList.add('btn-outline-warning');
+    });
+    // Add active to clicked
+    btn.classList.remove('btn-outline-warning');
+    btn.classList.add('btn-warning');
+}
+</script>
+{% endblock %}

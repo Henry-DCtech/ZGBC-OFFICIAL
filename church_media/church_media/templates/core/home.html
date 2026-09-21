@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Home - Zion Global Bible Church{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center mb-5">
+        <h1 class="display-4">Welcome to Zion Global Bible Church</h1>
+        <p class="lead">Broadcasting the Gospel 24/7 across Radio, TV, and Online</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>📻 Live Radio</h3>
+                <p>Tune in to Zion FM for worship and word.</p>
+                <a href="{% url 'core:radio' %}" class="btn btn-primary">Listen Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>📺 Live TV</h3>
+                <p>Watch Zion TV live broadcast and programs.</p>
+                <a href="{% url 'core:tv' %}" class="btn btn-primary">Watch Now</a>
+            </div>
+        </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h3>📅 Schedule</h3>
+                <p>Check our weekly program lineup.</p>
+                <a href="{% url 'core:schedule' %}" class="btn btn-primary">View Schedule</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="bg-light p-4 rounded text-center">
+            <h2>Latest Sermon</h2>
+            <p class="mb-3">"The Power of Faith" - Pastor John Doe</p>
+            <a href="{% url 'core:sermons' %}" class="btn btn-outline-dark">More Sermons</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

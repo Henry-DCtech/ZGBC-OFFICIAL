@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Partner With Us - ZGBC OFFICIAL{% endblock %}
+
+{% block content %}
+<section class="py-5" style="min-height: 80vh; background: linear-gradient(135deg, #000000 0%, #000000 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-lg" style="border-radius: 20px;">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="bi bi-people-fill" style="font-size: 3rem; color: #cc0000;"></i>
+                            <h2 class="fw-bold mt-3">Become a Partner</h2>
+                            <p class="text-muted">Join us in spreading the gospel to the world through your partnership</p>
+                        </div>
+
+                        <!-- {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-success">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %} -->
+
+                        <form method="POST" action="{% url 'core:partners' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Full Name *</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Email *</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" name="phone" class="form-control" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Partnership Type *</label>
+                                <select name="partnership_type" class="form-select" required>
+                                    <option value="">Select Type</option>
+                                    <option value="Financial Partner">Financial Partner</option>
+                                    <option value="Prayer Partner">Prayer Partner</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Media Partner">Media Partner</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="form-label">Message</label>
+                                <textarea name="message" class="form-control" rows="4" placeholder="Tell us how you'd like to partner..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-100" style="background: linear-gradient(45deg, #cc0000, #ff4444); border: none; border-radius: 15px;">
+                                <i class="bi bi-send"></i> Submit Partnership Request
+                            </button>
+                        </form>
+                        <div style="text-align:center; margin-top:25px; background:rgba(250,164,3,0.08); border:1px dashed #faa403; padding:12px 15px; border-radius:12px;">
+                        <i class="fa-solid fa-hands-praying" style="color:#faa403;"></i>
+                        <span style="color:#000008;"> You can make your prayer request through </span>
+                        <a href="{% url 'core:prayer_request' %}" style="color:#01124b; font-weight:700; text-decoration:none;">this link <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
