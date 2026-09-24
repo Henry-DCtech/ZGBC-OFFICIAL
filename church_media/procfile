@@ -1,1 +1,1 @@
-web: gunicorn church_media.wsgi --log-file -
+web: gunicorn church_media.wsgi:application

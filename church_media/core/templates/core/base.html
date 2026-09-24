@@ -320,5 +320,63 @@ function notifyService(){
 .prayed-btn{transition:0.3s;}
 .prayed-btn:active{transform:scale(1.2);}
 </style>
+<!-- Block Inspect / View Source -->
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(e.key.toUpperCase())) ||
+    (e.ctrlKey && e.key.toUpperCase() === 'U')
+  ) {
+    e.preventDefault();
+    return false;
+  }
+});
+// Extra: disable text selection on whole site
+document.addEventListener('selectstart', e => e.preventDefault());
+</script>
+
+<style>
+/* Disable selection */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+</style>
+<!-- ZGBC Source Protection -->
+<script>
+(function() {
+  // Disable right click
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  
+  // Block F12, Ctrl+Shift+I/J/C, Ctrl+U
+  document.addEventListener('keydown', function(e) {
+    if (e.keyCode == 123) { // F12
+      e.preventDefault(); return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) {
+      e.preventDefault(); return false;
+    }
+    if (e.ctrlKey && e.keyCode == 85) { // Ctrl+U
+      e.preventDefault(); return false;
+    }
+  });
+
+  // Block devtools opening trick
+  setInterval(function() {
+    if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+      document.body.innerHTML = "<div style='display:flex;justify-content:center;align-items:center;height:100vh;background:#000;color:#fff;font-family:sans-serif;'><h1>ZGBC Content Protected</h1></div>";
+    }
+  }, 1000);
+})();
+</script>
+<style>
+  /* Prevent easy copying */
+    * { -webkit-user-select: none !important; -moz-user-select: none !important; user-select: none !important; }
+  img { pointer-events: none; }
+</style>
 </body>
 </html>

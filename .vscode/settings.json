@@ -13,10 +13,12 @@
         "ZGBC",
         "ZIONGBC",
         "bgkmain",
+        "gunicorn",
         "idoreyin",
         "rgba",
         "translatex",
-        "uidb"
+        "uidb",
+        "wsgi"
     ],
     "cSpell.customDictionaries": {
         "custom-dictionary-workspace": {
