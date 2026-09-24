@@ -11,3 +11,4 @@ python-dotenv==1.2.2
 django-environ==0.13.0
 djangorestframework==3.16.0
 django-htmlmin==0.11.0
+django-htmlmin==0.11.0
