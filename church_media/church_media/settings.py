@@ -20,7 +20,7 @@ LOGOUT_REDIRECT_URL = '/'   # This wins
 SECRET_KEY = 'change-this-in- domain production'
 
 
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'your-domain.com']
 
@@ -59,10 +59,10 @@ SITE_URL = 'https://127.0.0.1:8000'
 
 
 MIDDLEWARE = [
-    'htmlmin.middleware.HtmlMinifyMiddleware',
-    'htmlmin.middleware.MarkRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -108,8 +108,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
     ]
-# # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
